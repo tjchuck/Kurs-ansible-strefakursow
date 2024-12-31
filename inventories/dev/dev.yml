@@ -14,5 +14,7 @@ dev:
 local:
   children:
     my_pc:
-      master_ansible:
-        ansible_host: localhost
+      hosts:
+        master_ansible:
+          ansible_host: localhost
+          ansible_connection: local
