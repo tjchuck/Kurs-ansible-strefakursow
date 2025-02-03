@@ -1,0 +1,7 @@
+--- # komentarz | koemnda ping na hostach wziętych z inventory
+
+- hosts: all
+  tasks:
+
+  - name: Ping wszystkich hostów
+    action: ping

@@ -1,0 +1,19 @@
+--- # cw1-play.yml | terefere kuku
+
+- name: Zadania dla webservers
+  hosts: webservers
+  #remote_user: tomek
+
+  tasks:
+    - name: Ping
+      action: ping
+
+    - name: Shell uname
+      shell: uname
+
+- name: Zadania dla loadbalancers.
+  hosts: loadbalancers
+
+  tasks:
+    - name: Shell name
+      shell: uname

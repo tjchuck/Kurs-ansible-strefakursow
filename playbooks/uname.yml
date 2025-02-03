@@ -1,0 +1,7 @@
+--- # komentarz | komenda uname na hostach wziętych z inventory
+
+- hosts: all
+  tasks:
+
+  - name: Get OS type
+    shell: uname
