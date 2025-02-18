@@ -1,0 +1,15 @@
+--- # apt-update.yml
+
+- name: Aktualizacja hostów.
+  hosts: webservers:loadbalancers
+  become: true
+
+  tasks:
+    - name: Tak samo jak sudo apt update
+      apt:
+        update_cache: yes
+
+    - name: Tak samo jak sudo apt upgrade -y
+      apt:
+        name: '*'
+        state: latest
