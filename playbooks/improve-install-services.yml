@@ -1,0 +1,30 @@
+--- # install-services.yml
+
+- name: Instalacja serwisów dla all hosts.
+  hosts: loadbalancers:webservers
+  become: true
+  tasks:
+    - name: instalacja apache na wszystkich hostach gdzie jest potrzebny
+      apt:
+        name: apache2
+        state: present # latest - zaktualizuje jeśli jest zainstalowany, absent - odinstaluje
+
+- name: Instalacja serwisów dla Web.
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: instalacja php
+      apt:
+        name: php
+        state: present
+
+
+- name: Restart/start usług.
+  hosts: loadbalancers:webservers
+  become: yes
+  tasks: 
+    - name: Autostart apache2
+      service:
+        name: apache2
+        state: restarted # started; reload
+        enabled: yes
