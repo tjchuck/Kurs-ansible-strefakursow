@@ -1,0 +1,11 @@
+--- # install-lynx.yml
+
+- name: Instalacja lynx na localhost.
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: instalacja lynx
+      apt:
+        name: lynx
+        state: present
