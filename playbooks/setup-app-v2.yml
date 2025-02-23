@@ -1,0 +1,31 @@
+--- # setup-app.yml
+
+- name: Ustawiamy naszą aplikację
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Przesyłamy nasz index.php
+      copy:
+        src: ../index.php
+        dest: /var/www/html/
+        mode: 0755
+
+    - name: Zamień na nazwę danego hosta
+      replace:
+        path: /var/www/html/index.php
+        regexp: 'HOST'
+        replace: " {{ inventory_hostname }}"
+
+    - name: Konfiguracja pliku php.ini
+      lineinfile:
+        path: /etc/php/7.4/apache2/php.ini
+        regexp: ^short_open_tag
+        line: 'short_open_tag=On'
+      notify: Restart apache
+
+  handlers:
+    - name: Restart apache
+      service:
+        name: apache2
+        state: restarted

@@ -11,7 +11,9 @@
       owner: root
       group: root
       mode: 644
+    notify: Restart apache2
 
+  handlers:
   - name: Restart apache2
     service:
       name: apache2
