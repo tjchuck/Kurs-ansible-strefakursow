@@ -1,0 +1,8 @@
+--- # setup-app-roles.yml
+
+- name: Ustawiamy naszą aplikację
+  hosts: webservers
+  become: yes
+  
+  roles:
+    - webservers

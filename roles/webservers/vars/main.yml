@@ -1,2 +1,5 @@
 ---
 # vars file for webservers
+
+    path_to_app: "/var/www/html/"
+    path_to_php_conf_file: "/etc/php/7.4/apache2/php.ini"

@@ -1,2 +1,34 @@
 ---
 # tasks file for webservers
+
+- name: Przesyłamy nasz index.php
+  copy:
+    src: index.php
+    dest: "{{ path_to_app }}"
+    mode: 0755
+
+- name: Zamień na nazwę danego hosta
+  replace:
+    path: "{{ path_to_app }}index.php"
+    regexp: 'HOST'
+    replace: " {{ inventory_hostname }}"
+
+- name: Stworzenie strony informacyjnej
+  copy:
+    dest: "{{ path_to_app }}info.php"
+    content: "<h1> Info o hoście: {{ ansible_hostname }} </h1>"
+
+- name: Pokaż zawartośc folderu /var/www/html/
+  command: ls -la {{ path_to_app }}
+  register: dir_content
+
+- name: Debug
+  debug: 
+    msg: "{{ dir_content }}"
+
+- name: Konfiguracja pliku php.ini
+  lineinfile:
+    path: "{{ path_to_php_conf_file }}"
+    regexp: ^short_open_tag
+    line: 'short_open_tag=On'
+  notify: Restart apache
